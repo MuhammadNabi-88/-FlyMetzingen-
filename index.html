@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="affiliate-booking" content="YOUR_BOOKING_AFFILIATE_ID">
+<title>FlyMetzingen - Flights & Hotels | Professional</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="logo">✈️ FlyMetzingen <span>METZINGEN / STUTTGART • FLIGHTS + HOTELS</span></div>
+  <div class="nav">
+    <button class="nav-btn primary" onclick="goHome()">🔍 New Search</button>
+    <button class="nav-btn" onclick="document.getElementById('hotels').scrollIntoView({behavior:'smooth'})">🏨 Hotels</button>
+  </div>
+</header>
+
+<div class="steps">
+  <div class="step active" id="s1"><b>1</b> Search</div><div class="line"></div>
+  <div class="step" id="s2"><b>2</b> Flights</div><div class="line"></div>
+  <div class="step" id="s3"><b>3</b> Passenger</div><div class="line"></div>
+  <div class="step" id="s4"><b>4</b> Ticket</div>
+  <button class="restart" onclick="goHome()">↺ Start New Search</button>
+</div>
+
+<!-- PAGE 1 -->
+<section id="page1" class="page active">
+  <div class="search-card">
+    <div class="trip-type">
+      <button class="active" onclick="setTrip('oneway',this)">One Way</button>
+      <button onclick="setTrip('return',this)">Return</button>
+      <button onclick="setTrip('multi',this)">Multi-City</button>
+      <select id="cabin"><option>Economy</option><option>Premium Economy</option><option>Business</option><option>First</option></select>
+      <select id="departAirport">
+        <option value="STR">STR - Stuttgart (Main)</option>
+        <option value="FRA">FRA - Frankfurt</option>
+        <option value="MUC">MUC - Munich</option>
+        <option value="BER">BER - Berlin</option>
+        <option value="DUS">DUS - Düsseldorf</option>
+        <option value="HAM">HAM - Hamburg</option>
+        <option value="CGN">CGN - Cologne</option>
+        <option value="NUE">NUE - Nuremberg</option>
+        <option value="FKB">FKB - Karlsruhe/Baden</option>
+        <option value="ZRH">ZRH - Zurich</option>
+      </select>
+      <select id="passengers"><option value="1">1 Passenger</option><option value="2">2 Passengers</option><option value="3">3</option><option value="4">4</option></select>
+    </div>
+
+    <div class="search-grid">
+      <div class="field"><label>FROM (Departure)</label><input id="from" value="STR"><small id="fromCity">Stuttgart Airport - More than 10 airports available</small></div>
+      <button class="swap" onclick="swapAirports()">⇄</button>
+      <div class="field"><label>TO (Destination - Worldwide)</label><input id="to" value="IST" list="destList"><datalist id="destList"><option value="IST">Istanbul<option value="DXB">Dubai<option value="JFK">New York<option value="LHR">London<option value="AYT">Antalya<option value="BCN">Barcelona<option value="PAR">Paris<option value="ROM">Rome<option value="BKK">Bangkok</datalist><small id="toCity">Istanbul - 200+ destinations</small></div>
+      <div class="field"><label>Departure</label><input type="date" id="date"></div>
+      <div class="field" id="returnField" style="display:none"><label>Return</label><input type="date" id="returnDate"></div>
+    </div>
+
+    <div class="options-row">
+      <label><input type="checkbox" id="directOnly"> Direct only</label>
+      <label><input type="checkbox" id="baggage" checked> Baggage 23kg</label>
+      <label><input type="checkbox" id="flex"> Flexible ±3 days</label>
+      <select id="airlineFilter"><option value="all">All Airlines + Aircrafts</option><option>Turkish Airlines (A321neo)</option><option>Lufthansa (A320 / A330)</option><option>Pegasus (B737-800)</option><option>Eurowings (A320)</option><option>Emirates (B777)</option><option>Qatar (A350)</option></select>
+    </div>
+    <button class="search-btn" onclick="searchFlights()">🔍 Search 500+ Flights - Live</button>
+    <p class="note">✈️ 12 Aircraft Types • A320, B737, A330, B777, A350, A321neo • Real-time prices • E-Ticket + PNR</p>
+  </div>
+
+  <!-- HOTELS -->
+  <div id="hotels" class="hotels-section">
+    <div class="hotels-head"><h2>🏨 Hotels in Top Cities - Book with Flight</h2><button class="nav-btn primary" onclick="goHome()">🔍 New Search</button></div>
+    <p class="muted">Add hotel after flight - Save 20% combo deal</p>
+    <div class="hotel-grid">
+        
+  <div class="hotel"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&auto=format&fit=crop&q=80" alt="Istanbul" onerror="this.src='https://picsum.photos/400/300?random=1'"><div><b>Istanbul</b><span>From €59/night • 4.8★ • Near Airport</span><button>Check Hotels →</button></div></div>
+  
+  <div class="hotel"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&auto=format&fit=crop&q=80" alt="Dubai" onerror="this.src='https://picsum.photos/400/300?random=2'"><div><b>Dubai</b><span>From €89/night • 5★ • Burj View</span><button>Check Hotels →</button></div></div>
+  
+  <div class="hotel"><img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&auto=format&fit=crop&q=80" alt="New York" onerror="this.src='https://picsum.photos/400/300?random=3'"><div><b>New York</b><span>From €129/night • 4.7★ • Manhattan</span><button>Check Hotels →</button></div></div>
+  
+  <div class="hotel"><img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&auto=format&fit=crop&q=80" alt="London" onerror="this.src='https://picsum.photos/400/300?random=4'"><div><b>London</b><span>From €79/night • 4.6★ • City Center</span><button>Check Hotels →</button></div></div>
+  
+  <div class="hotel"><img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&auto=format&fit=crop&q=80" alt="Antalya" onerror="this.src='https://picsum.photos/400/300?random=5'"><div><b>Antalya</b><span>From €45/night • All inclusive</span><button>Check Hotels →</button></div></div>
+  
+  <div class="hotel"><img src="https://images.unsplash.com/photo-1558642084-fd43571a4dcb?w=600&auto=format&fit=crop&q=80" alt="Barcelona" onerror="this.src='https://picsum.photos/400/300?random=6'"><div><b>Barcelona</b><span>From €69/night • Beach</span><button>Check Hotels →</button></div></div>
+  
+  <div class="hotel"><img src="https://images.unsplash.com/photo-1431274172761-fca41d930114?w=600&auto=format&fit=crop&q=80" alt="Paris" onerror="this.src='https://picsum.photos/400/300?random=7'"><div><b>Paris</b><span>From €85/night • Eiffel View</span><button>Check Hotels →</button></div></div>
+  
+  <div class="hotel"><img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&auto=format&fit=crop&q=80" alt="Bangkok" onerror="this.src='https://picsum.photos/400/300?random=8'"><div><b>Bangkok</b><span>From €35/night • 5★ Luxury</span><button>Check Hotels →</button></div></div>
+
+    
+  </div>
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2" class="page">
+  <div class="results-bar"><h2 id="routeTitle"></h2><div class="actions"><button class="nav-btn primary" onclick="goHome()">🔍 New Search from Start</button><div class="sort"><button class="active" onclick="sortBy('price',this)">Cheapest</button><button onclick="sortBy('time',this)">Fastest</button></div></div></div>
+  <div id="flightList" class="flight-list"></div>
+  <button class="secondary-btn" onclick="goHome()">↺ Start New Search</button>
+</section>
+
+<!-- PAGE 3 -->
+<section id="page3" class="page">
+  <div class="pax-grid">
+    <div class="form-card"><h3>Passenger Details</h3><div id="paxForms"></div><h3 style="margin-top:20px">Contact for E-Ticket</h3><div class="form-row"><input id="email" placeholder="Email"><input id="phone" placeholder="Phone"></div><div class="price-box"><span>Total</span><b id="finalPrice"></b><small id="finalRoute"></small></div><button class="search-btn" onclick="generateTicket()">Pay & Get Ticket</button><button class="secondary-btn" onclick="goHome()">🔍 New Search from Start</button></div>
+    <div class="summary-card" id="summary"></div>
+  </div>
+</section>
+
+<!-- PAGE 4 -->
+<section id="page4" class="page">
+  <div class="ticket-card"><div class="ticket-head"><h2>✅ Confirmed</h2><span id="pnr"></span></div><div id="ticketContent"></div><div class="ticket-actions"><button onclick="downloadPDF()">📄 Download PDF</button><button onclick="goHome()" class="light">🔍 New Search from Start</button></div></div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
